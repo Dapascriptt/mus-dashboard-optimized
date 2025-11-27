@@ -109,7 +109,7 @@ import { onMounted, defineAsyncComponent, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
 import { useOrderStore } from '../stores/orderStore'
-import { deleteOrder } from '../services/orderService'
+import { deleteOrder } from '../services/OrderService'
 
 // =======================
 //  ASYNC DATATABLE (2B)
