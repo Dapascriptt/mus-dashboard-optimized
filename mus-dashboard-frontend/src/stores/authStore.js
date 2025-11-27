@@ -1,11 +1,13 @@
+// src/stores/authStore.js
 import { defineStore } from "pinia";
-import axios from "axios";
+import api from "../services/api";
 
-export const useAuthStore = defineStore("authStore", {
+export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: JSON.parse(localStorage.getItem("user")) || null,
-    token: localStorage.getItem("token") || null,
+    user: null,
+    token: localStorage.getItem("token") || "",
     loading: false,
+    lastError: "",
   }),
 
   getters: {
@@ -15,32 +17,54 @@ export const useAuthStore = defineStore("authStore", {
   actions: {
     async login(username, password) {
       this.loading = true;
+      this.lastError = "";
+
       try {
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
+        const { data } = await api.post("/auth/login", {
           username,
           password,
         });
 
-        this.user = res.data.user;
-        this.token = res.data.token;
+        this.user = data.user;
+        this.token = data.token;
 
-        localStorage.setItem("user", JSON.stringify(this.user));
-        localStorage.setItem("token", this.token);
+        localStorage.setItem("token", data.token);
 
-        return true;            // ✅ penting
+        api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
+        return true;
       } catch (err) {
-        console.error("Login failed:", err.response?.data || err.message);
-        return false;           // ✅ biar bisa dideteksi di Login.vue
+        this.lastError =
+          err.response?.data?.message ||
+          err.message ||
+          "Login gagal.";
+
+        return false;
       } finally {
         this.loading = false;
       }
     },
 
+    async fetchMe() {
+      if (!this.token) return false;
+
+      try {
+        const { data } = await api.get("/auth/me");
+        this.user = data;
+        return true;
+      } catch (err) {
+        this.logout();
+        return false;
+      }
+    },
+
     logout() {
       this.user = null;
-      this.token = null;
-      localStorage.removeItem("user");
+      this.token = "";
       localStorage.removeItem("token");
+      delete api.defaults.headers.common["Authorization"];
     },
   },
 });
+
+
