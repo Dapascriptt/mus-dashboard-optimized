@@ -1,9 +1,13 @@
 [build]
+  command = "cd mus-dashboard-frontend && npm install && npm run build"
   publish = "mus-dashboard-frontend/dist"
   functions = "mus-dashboard-backend/netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
+
+[functions]
+  directory = "mus-dashboard-backend/netlify/functions"
 
 [[redirects]]
   from = "/api/*"
