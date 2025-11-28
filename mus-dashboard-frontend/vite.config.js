@@ -3,32 +3,46 @@ import vue from '@vitejs/plugin-vue'
 import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
 
+// =========================
+//   VITE CONFIG – OPTIMIZED
+// =========================
 export default defineConfig({
   plugins: [
     vue(),
+
+    // 🔍 Bundle Visualizer
     visualizer({
       filename: 'dist/stats.html',
+      template: 'treemap',
       gzipSize: true,
       brotliSize: true,
-      open: false, // nanti kamu bisa buka manual
+      open: false, // buka manual
     }),
+
+    // 🔥 Gzip Compression Output
     viteCompression({
       algorithm: 'gzip',
       ext: '.gz',
       deleteOriginFile: false,
     }),
   ],
+
+  // ⚡ Optimize chunks secara custom
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          // 🔹 vendor chunks
+          // ================================
+          //           VENDOR CHUNKS
+          // ================================
           'vue-vendor': ['vue', 'vue-router'],
           'pinia-vendor': ['pinia'],
           'element-plus-vendor': ['element-plus'],
           'chart-vendor': ['chart.js', 'vue-chartjs'],
 
-          // 🔹 feature / module chunks
+          // ================================
+          //         FEATURE CHUNKING
+          // ================================
           product: [
             './src/pages/ProductList.vue',
             './src/pages/ProductAdd.vue',
@@ -39,11 +53,22 @@ export default defineConfig({
             './src/pages/OrderDetail.vue',
             './src/pages/OrderAdd.vue',
           ],
-          analytics: [
-            './src/pages/Analytics.vue',
-          ],
-          // kalau ada halaman lain (Customer, Settings, dll) bisa ditambah di sini
+          analytics: ['./src/pages/Analytics.vue'],
+          customer: ['./src/pages/CustomerList.vue'],
+          settings: ['./src/pages/Settings.vue'],
         },
+      },
+    },
+  },
+
+  // ================================
+  //      DEV PROXY (Local Only)
+  // ================================
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
       },
     },
   },
