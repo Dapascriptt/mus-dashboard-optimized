@@ -1,161 +1,284 @@
-md
-# Perbandingan Bundle 2A (Baseline) dan 2B (Optimized)
+# PERBEDAAN APLIKASI 2A (Baseline) DAN 2B (Optimized)
 
-Dokumen ini membandingkan hasil build dan konfigurasi antara versi **2A (Baseline)** dan **2B (Optimized)** dari aplikasi Mus Store Dashboard.  
-Fokus utama perbandingan mencakup *bundle size*, *struktur chunk*, serta teknik optimasi build yang diterapkan.
+## 1. Perubahan Pada `src/router/index.js`
 
----
+### 2A – Baseline (Tanpa Lazy Loading)
 
-## 1. Vite Configuration
-
-### 2A – Baseline
 ```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { visualizer } from 'rollup-plugin-visualizer'
+import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '../stores/authStore'
 
-export default defineConfig({
-  plugins: [
-    vue(),
-    visualizer({
-      filename: 'stats.html',
-      template: 'treemap',
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-    },
-  },
+import Dashboard from '../pages/Dashboard.vue'
+
+import ProductList from '../pages/ProductList.vue'
+import ProductAdd from '../pages/ProductAdd.vue'
+import ProductEdit from '../pages/ProductEdit.vue'
+
+import OrderList from '../pages/OrderList.vue'
+import OrderAdd from '../pages/OrderAdd.vue'
+import OrderDetail from '../pages/OrderDetail.vue'
+
+import CustomerList from '../pages/CustomerList.vue'
+import CustomerAdd from '../pages/CustomerAdd.vue'
+import CustomerEdit from '../pages/CustomerEdit.vue'
+
+import Analytics from '../pages/Analytics.vue'
+import Settings from '../pages/Settings.vue'
+import Login from '../pages/auth/Login.vue'
+
+const routes = [
+  { path: '/', redirect: '/dashboard' },
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+
+  { path: '/products', name: 'ProductList', component: ProductList },
+  { path: '/products/add', name: 'ProductAdd', component: ProductAdd },
+  { path: '/products/edit/:id', name: 'ProductEdit', component: ProductEdit, props: true },
+
+  { path: '/orders', name: 'OrderList', component: OrderList },
+  { path: '/orders/add', name: 'OrderAdd', component: OrderAdd },
+  { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
+
+  { path: '/customers', name: 'CustomerList', component: CustomerList },
+  { path: '/customers/add', name: 'CustomerAdd', component: CustomerAdd },
+  { path: '/customers/edit/:id', name: 'CustomerEdit', component: CustomerEdit, props: true },
+
+  { path: '/analytics', name: 'Analytics', component: Analytics },
+  { path: '/settings', name: 'Settings', component: Settings },
+  { path: '/login', name: 'Login', component: Login },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
+
+export default router
 ```
 
-### 2B – Optimized
+### Penjelasan
+- Semua halaman di-import langsung, tidak ada pemecahan chunk.
+- Bundle awal besar karena seluruh halaman dimuat di awal.
+- Tidak ada optimasi performa.
+
+---
+
+### 2B – Optimized (Full Lazy Loading)
+
 ```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { visualizer } from 'rollup-plugin-visualizer'
-import viteCompression from 'vite-plugin-compression'
+import { createRouter, createWebHistory } from 'vue-router'
 
-export default defineConfig({
-  plugins: [
-    vue(),
-    visualizer({
-      filename: 'dist/stats.html',
-      template: 'treemap',
-      gzipSize: true,
-      brotliSize: true,
-      open: false,
-    }),
-    viteCompression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      deleteOriginFile: false,
-    }),
-  ],
+const Dashboard = () => import('../pages/Dashboard.vue')
 
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vue-vendor': ['vue', 'vue-router'],
-          'pinia-vendor': ['pinia'],
-          'element-plus-vendor': ['element-plus'],
-          'chart-vendor': ['chart.js', 'vue-chartjs'],
+const ProductList  = () => import('../pages/ProductList.vue')
+const ProductAdd   = () => import('../pages/ProductAdd.vue')
+const ProductEdit  = () => import('../pages/ProductEdit.vue')
 
-          product: [
-            './src/pages/ProductList.vue',
-            './src/pages/ProductAdd.vue',
-            './src/pages/ProductEdit.vue',
-          ],
-          order: [
-            './src/pages/OrderList.vue',
-            './src/pages/OrderDetail.vue',
-            './src/pages/OrderAdd.vue',
-          ],
-          analytics: ['./src/pages/Analytics.vue'],
-          customer: ['./src/pages/CustomerList.vue'],
-          settings: ['./src/pages/Settings.vue'],
-        },
-      },
-    },
-  },
+const OrderAdd     = () => import('../pages/OrderAdd.vue')
+const OrderList    = () => import('../pages/OrderList.vue')
+const OrderDetail  = () => import('../pages/OrderDetail.vue')
 
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-    },
-  },
+const CustomerList = () => import('../pages/CustomerList.vue')
+const CustomerAdd  = () => import('../pages/CustomerAdd.vue')
+const CustomerEdit = () => import('../pages/CustomerEdit.vue')
+
+const Analytics    = () => import('../pages/Analytics.vue')
+const Settings     = () => import('../pages/Settings.vue')
+const Login        = () => import('../pages/auth/Login.vue')
+
+const routes = [
+  { path: '/', redirect: '/dashboard' },
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+
+  { path: '/products', name: 'ProductList', component: ProductList },
+  { path: '/products/add', name: 'ProductAdd', component: ProductAdd },
+  { path: '/products/edit/:id', name: 'ProductEdit', props: true, component: ProductEdit },
+
+  { path: '/orders', name: 'OrderList', component: OrderList },
+  { path: '/orders/add', name: 'OrderAdd', component: OrderAdd },
+  { path: '/orders/:id', name: 'OrderDetail', props: true, component: OrderDetail },
+
+  { path: '/customers', name: 'CustomerList', component: CustomerList },
+  { path: '/customers/add', name: 'CustomerAdd', component: CustomerAdd },
+  { path: '/customers/edit/:id', name: 'CustomerEdit', props: true, component: CustomerEdit },
+
+  { path: '/analytics', name: 'Analytics', component: Analytics },
+  { path: '/settings', name: 'Settings', component: Settings },
+  { path: '/login', name: 'Login', component: Login },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
+
+export default router
+```
+
+### Penjelasan Perubahan
+- Semua halaman dimuat menggunakan dynamic import.
+- Masing-masing halaman menjadi chunk terpisah.
+- Initial bundle jauh lebih kecil.
+- Waktu loading halaman menjadi lebih cepat.
+
+---
+
+## 2. Perubahan Pada `src/App.vue`
+
+### 2A – Baseline
+
+```vue
+<template>
+  <!-- layout + sidebar + header -->
+  <RouterView />
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from './stores/authStore'
+
+const isSidebarCollapsed = ref(false)
+const toggleSidebar = () => isSidebarCollapsed.value = !isSidebarCollapsed.value
+</script>
+```
+
+### Penjelasan
+- Komponen sidebar dan layout dimuat langsung.
+- Tidak ada async component.
+- Semua elemen UI masuk dalam initial bundle.
+
+---
+
+### 2B – Optimized (Async Component + Suspense)
+
+```vue
+<script setup>
+import { defineAsyncComponent } from 'vue'
+
+const LineChart = defineAsyncComponent(() =>
+  import("../components/charts/Linechart.vue")
+)
+</script>
+```
+
+### Penjelasan Perubahan
+- Komponen berat seperti Chart dipisahkan menggunakan async component.
+- Mendukung `<Suspense>` dan skeleton loader.
+- Mengurangi ukuran initial bundle.
+
+---
+
+## 3. Perubahan Pada `src/pages/Dashboard.vue`
+
+### 2A – Baseline (Import biasa)
+
+```js
+import LineChart from "../components/charts/LineChart.vue"
+import BarChart from "../components/charts/BarChart.vue"
+import PieChart from "../components/charts/PieChart.vue"
+```
+
+### Penjelasan
+- Chart.js adalah library besar.
+- Meng-import secara langsung membuat bundle utama membesar.
+
+---
+
+### 2B – Optimized (Async Component + Prefetch)
+
+```js
+import { defineAsyncComponent } from 'vue'
+
+const LineChart = defineAsyncComponent(() =>
+  import("../components/charts/Linechart.vue")
+)
+
+const BarChart = defineAsyncComponent(() =>
+  import("../components/charts/Barchart.vue")
+)
+
+const PieChart = defineAsyncComponent(() =>
+  import("../components/charts/PieChart.vue")
+)
+```
+
+### Penjelasan Perubahan
+- Chart.js dipisah menjadi chunk sendiri.
+- Dashboard melakukan prefetch halaman ProductList dan OrderList.
+
+---
+
+## 4. Perubahan Pada `vite.config.js`
+
+### 2A – Baseline
+
+```js
+plugins: [
+  vue(),
+  visualizer({
+    filename: 'stats.html',
+    template: 'treemap',
+    gzipSize: true,
+    brotliSize: true,
+  }),
+]
 ```
 
 ---
 
-## 2. Perbedaan Teknik Optimasi
-
-### 2A – Baseline
-- Tidak menggunakan lazy loading.
-- Tidak ada manualChunks.
-- Tidak menggunakan gzip compression.
-- Chart component di-import langsung.
-- Struktur bundle masih satuan (monolitik).
-
 ### 2B – Optimized
-- Lazy loading pada semua route.
-- Chart component diubah menjadi async component dan dibungkus `<Suspense>`.
-- Menggunakan manualChunks sehingga vendor dipisah.
-- Menggunakan gzip compression untuk memperkecil ukuran final build.
-- Dashboard melakukan prefetch halaman lain.
-- Struktur build lebih modular dan efisien.
+
+```js
+plugins: [
+  vue(),
+  visualizer({
+    filename: 'dist/stats.html',
+    template: 'treemap',
+    gzipSize: true,
+    brotliSize: true,
+  }),
+  viteCompression({
+    algorithm: 'gzip',
+    ext: '.gz',
+  }),
+],
+build: {
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        'vue-vendor': ['vue', 'vue-router'],
+        'element-plus-vendor': ['element-plus'],
+        'chart-vendor': ['chart.js', 'vue-chartjs'],
+        product: [...],
+        order: [...],
+      }
+    }
+  }
+}
+```
+
+### Penjelasan
+- Menggunakan gzip compression.
+- Manual chunking memecah vendor besar.
+- Bundle lebih kecil dan modular.
 
 ---
 
-## 3. Hasil Visualisasi Bundle (stats.html)
+## 5. Tabel Ringkasan Perubahan
 
-### 2A – Baseline
-File: `stats2a.html`  
-Ciri-ciri:
-- Bundle masih satu file besar.
-- Library seperti Element Plus dan Chart.js mendominasi.
-- Tidak ada pemisahan vendor.
-
-### 2B – Optimized
-File: `stats2b.html`  
-Ciri-ciri:
-- Struktur bundle lebih modular.
-- Vendor library dipisah menjadi beberapa chunk.
-- Bundle utama jauh lebih kecil.
+| Bagian | 2A (Baseline) | 2B (Optimized) |
+|--------|---------------|----------------|
+| Routing | Import langsung | Lazy loading |
+| Chart | Import langsung | Async component |
+| Prefetch | Tidak ada | Ada |
+| manualChunks | Tidak ada | Ada |
+| Gzip | Tidak ada | Ada |
+| Struktur bundle | Monolitik | Modular |
+| Initial load | Lambat | Lebih cepat |
 
 ---
 
-## 4. Ringkasan Perbandingan Bundle
+## 6. Kesimpulan
 
-| Aspek                             | 2A (Baseline) | 2B (Optimized) |
-|----------------------------------|---------------|----------------|
-| Lazy Loading                     | Tidak         | Ya             |
-| Async Chart Component            | Tidak         | Ya             |
-| Manual Chunking                  | Tidak         | Ya             |
-| Gzip Compression                 | Tidak         | Ya             |
-| Prefetch                         | Tidak         | Ya             |
-| Struktur Bundle                  | Monolitik     | Modular        |
-| Ukuran Bundle                    | Lebih besar   | Lebih kecil    |
-| Waktu Load                       | Lebih lambat  | Lebih cepat    |
-
----
-
-## 5. Kesimpulan
-
-Versi **2B (Optimized)** memberikan peningkatan signifikan dibandingkan **2A (Baseline)**.  
-Ukuran bundle lebih kecil, waktu loading lebih cepat, dan struktur modul lebih baik untuk caching.  
-Konfigurasi tambahan seperti lazy loading, async component, manual chunking, dan gzip compression membuat versi 2B lebih efisien dan direkomendasikan untuk deployment produksi.
-
----
+Versi **2B (Optimized)** memberikan peningkatan signifikan melalui lazy loading, async component, manual chunking, prefetching, serta gzip compression. Bundle size menjadi jauh lebih kecil, waktu muat lebih cepat, dan struktur kode lebih scalable.
 
