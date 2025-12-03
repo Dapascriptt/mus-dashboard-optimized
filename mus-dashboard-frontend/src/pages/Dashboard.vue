@@ -210,7 +210,7 @@ import {
   getAnalyticsCustomers,
 } from "../services/AnalyticsService"
 
-// 🔥 CHARTS DI-DIJADIKAN ASYNC COMPONENTS
+//  CHARTS DI-DIJADIKAN ASYNC COMPONENTS
 // (nama komponennya tetap LineChart / BarChart / PieChart
 //  jadi template kamu nggak perlu diubah)
 const LineChart = defineAsyncComponent(() =>
