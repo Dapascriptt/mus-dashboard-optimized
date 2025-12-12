@@ -3,8 +3,8 @@
      Header 
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-semibold mb-1">Analytics</h1>
-        <p class="text-xs text-slate-400">
+        <h1 class="text-2xl font-semibold mb-1">Analitik</h1>
+        <p class="text-xs text-slate-300">
           Ringkasan performa orders, revenue, dan produk.
         </p>
       </div>
@@ -15,7 +15,7 @@
       {{ error }}
     </div>
     <div v-if="loading" class="text-sm text-slate-300">
-      Loading analytics...
+      Memuat analitik...
     </div>
 
     <!-- Overview Cards -->
@@ -54,7 +54,7 @@
         class="bg-slate-900/70 p-4 rounded-xl border border-slate-800
                h-[340px] flex flex-col overflow-hidden"
       >
-        <h2 class="text-lg mb-2">Revenue Over Time</h2>
+        <h2 class="text-lg mb-2">Pendapatan Berjalan</h2>
         <div class="flex-1 min-h-0">
           <Suspense>
             <template #default>
@@ -72,7 +72,7 @@
         class="bg-slate-900/70 p-4 rounded-xl border border-slate-800
                h-[340px] flex flex-col overflow-hidden"
       >
-        <h2 class="text-lg mb-2">Orders by Status</h2>
+        <h2 class="text-lg mb-2">Pesanan Berdasarkan Status</h2>
         <div class="flex-1 min-h-0">
           <Suspense>
             <template #default>
@@ -90,7 +90,7 @@
         class="bg-slate-900/70 p-4 rounded-xl border border-slate-800
                h-[340px] flex flex-col overflow-hidden"
       >
-        <h2 class="text-lg mb-2">Revenue by Status</h2>
+        <h2 class="text-lg mb-2">Pendapatan Berdasarkan Status</h2>
         <div class="flex-1 min-h-0">
           <Suspense>
             <template #default>
@@ -108,7 +108,7 @@
         class="bg-slate-900/70 p-4 rounded-xl border border-slate-800
                h-[340px] flex flex-col overflow-hidden"
       >
-        <h2 class="text-lg mb-2">Top Products</h2>
+        <h2 class="text-lg mb-2">Produk Unggulan</h2>
         <div class="flex-1 min-h-0">
           <Suspense>
             <template #default>
@@ -261,13 +261,13 @@ onMounted(async () => {
 
     overviewCards.value = [
       {
-        title: 'Total Orders',
+        title: 'Total Pesanan',
         icon: IconOrders,
         iconBg: 'bg-indigo-500/15 text-indigo-300',
         value: overview.totalOrders ?? 0,
       },
       {
-        title: 'Total Revenue',
+        title: 'Total Pendapatan',
         icon: IconRevenue,
         iconBg: 'bg-emerald-500/15 text-emerald-300',
         value:
@@ -275,13 +275,13 @@ onMounted(async () => {
           Number(overview.totalRevenue || 0).toLocaleString('id-ID'),
       },
       {
-        title: 'Total Customers',
+        title: 'Total Pelanggan',
         icon: IconCustomers,
         iconBg: 'bg-sky-500/15 text-sky-300',
         value: overview.totalCustomers ?? 0,
       },
       {
-        title: 'Total Products',
+        title: 'Total Produk',
         icon: IconProducts,
         iconBg: 'bg-amber-500/15 text-amber-300',
         value: overview.totalProducts ?? 0,

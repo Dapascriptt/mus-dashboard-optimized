@@ -4,11 +4,11 @@
     <!-- Header atas -->
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-semibold mb-1">Product List</h1>
+        <h1 class="text-2xl font-semibold mb-1">Daftar Produk</h1>
       </div>
 
       <router-link to="/products/add">
-        <el-button type="primary">+ Add Product</el-button>
+        <el-button type="primary">+ Tambah Produk</el-button>
       </router-link>
     </div>
 
@@ -21,7 +21,7 @@
     <Suspense>
       <template #default>
         <AsyncDataTable
-          title="Products"
+          title="Produk"
           subtitle="Menampilkan data produk dengan pencarian, sort, dan pagination"
           :columns="columns"
           :data="products"
@@ -82,16 +82,16 @@
   <template #default>
     <AsyncModal
       v-model="showDeleteModal"
-      title="Delete Product"
+      title="Hapus Produk"
       width="400px"
       @close="showDeleteModal = false"
     >
       <span>Yakin ingin menghapus produk ini?</span>
 
       <template #footer>
-        <el-button @click="showDeleteModal = false">Cancel</el-button>
+        <el-button @click="showDeleteModal = false">Batal</el-button>
         <el-button type="danger" :loading="deleting" @click="handleDelete">
-          Delete
+          Hapus
         </el-button>
       </template>
     </AsyncModal>
@@ -128,13 +128,13 @@ const deleteId = ref(null)
 
 // definisi kolom (sort otomatis by key)
 const columns = [
-  { label: 'Name', key: 'name', sortable: true },
+  { label: 'Nama Produk', key: 'name', sortable: true },
   { label: 'SKU', key: 'sku', sortable: true },
-  { label: 'Price', key: 'price', sortable: true, cellClass: 'text-right' },
-  { label: 'Stock', key: 'stock', sortable: true },
-  { label: 'Category', key: 'category', sortable: true },
+  { label: 'Harga', key: 'price', sortable: true, cellClass: 'text-right' },
+  { label: 'Stok', key: 'stock', sortable: true },
+  { label: 'Kategori', key: 'category', sortable: true },
   { label: 'Status', key: 'status', sortable: true },
-  { label: 'Actions', key: 'actions', sortable: false, cellClass: 'text-right w-40' },
+  { label: 'Aksi', key: 'actions', sortable: false, cellClass: 'text-right w-40' },
 ]
 
 // ambil data produk

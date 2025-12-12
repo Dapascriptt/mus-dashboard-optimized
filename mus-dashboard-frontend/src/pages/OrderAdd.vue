@@ -2,22 +2,22 @@
   <div class="p-4 text-white">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-semibold">Add Order</h1>
+      <h1 class="text-2xl font-semibold">Tambah Pesanan</h1>
 
       <router-link to="/orders">
-        <el-button>Back to Orders</el-button>
+        <el-button>Kembali ke Pesanan</el-button>
       </router-link>
     </div>
 
     <div class="space-y-4">
       <!-- ORDER INFO (pakai BaseForm) -->
       <BaseForm
-        title="Order Information"
+        title="Informasi Pesanan"
         subtitle="Lengkapi informasi order sebelum menambahkan item."
         :schema="orderSchema"
         :model="form"
         :loading="submitting"
-        submit-label="Save Order"
+        submit-label="Simpan Pesanan"
         @submit="onSubmit"
         @cancel="goBack"
       >
@@ -29,7 +29,7 @@
       <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-4 space-y-2">
         <div class="flex items-center justify-between mb-1">
           <h2 class="font-semibold text-sm">Items</h2>
-          <p class="text-xs text-slate-400">
+          <p class="text-xs text-slate-300">
             Harga otomatis mengikuti data Product
           </p>
         </div>
@@ -38,11 +38,11 @@
           <table class="min-w-full text-sm">
             <thead class="bg-slate-900/90 border-b border-slate-800">
               <tr class="text-left text-slate-300">
-                <th class="px-4 py-3">Product</th>
-                <th class="px-4 py-3 w-24">Qty</th>
-                <th class="px-4 py-3 w-40">Price</th>
+                <th class="px-4 py-3">Produk</th>
+                <th class="px-4 py-3 w-24">Jml</th>
+                <th class="px-4 py-3 w-40">Harga</th>
                 <th class="px-4 py-3 w-40">Subtotal</th>
-                <th class="px-4 py-3 w-24 text-right">Action</th>
+                <th class="px-4 py-3 w-24 text-right">Aksi</th>
               </tr>
             </thead>
 
@@ -129,7 +129,7 @@
 
         <div class="flex items-center gap-4">
           <div class="text-right">
-            <p class="text-sm text-slate-400">Total Amount</p>
+            <p class="text-sm text-slate-400">Total Tagihan</p>
             <p class="text-xl font-semibold">
               {{ formatPrice(totalAmount) }}
             </p>
@@ -137,7 +137,7 @@
 
           <div class="flex gap-2">
             <router-link to="/orders">
-              <el-button>Cancel</el-button>
+              <el-button>Batal</el-button>
             </router-link>
 
             <el-button
@@ -182,13 +182,13 @@ const form = ref({
 // Schema untuk BaseForm (order info)
 const orderSchema = [
   {
-    label: "Order Number",
+    label: "No. Pesanan",
     prop: "orderNumber",
     type: "text",
     placeholder: "Contoh: ORD-002",
   },
   {
-    label: "Customer Name",
+    label: "Nama Pelanggan",
     prop: "customerName",
     type: "text",
     placeholder: "Nama customer",

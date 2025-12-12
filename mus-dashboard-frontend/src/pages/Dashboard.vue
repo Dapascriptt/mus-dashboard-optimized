@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-semibold mb-1">Dashboard</h1>
-        <p class="text-sm text-slate-400">
+        <p class="text-sm text-slate-300">
           Ringkasan performa penjualan dan aktivitas toko.
         </p>
       </div>
@@ -94,7 +94,7 @@
 
         <!-- TEXT -->
         <div class="flex-1">
-          <p class="text-xs uppercase tracking-wide text-slate-400">
+          <p class="text-xs uppercase tracking-wide text-slate-300">
             {{ card.title }}
           </p>
           <p class="text-xl font-semibold mt-1">
@@ -111,8 +111,8 @@
         class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 h-72 flex flex-col"
       >
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-lg font-semibold">Revenue Over Time</h2>
-          <span class="text-xs text-slate-400">berdasarkan tanggal order</span>
+          <h2 class="text-lg font-semibold">Pendapatan Berjalan</h2>
+          <span class="text-xs text-slate-300">berdasarkan tanggal order</span>
         </div>
 
         <div class="flex-1">
@@ -138,8 +138,8 @@
         class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 h-72 flex flex-col"
       >
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-lg font-semibold">Orders by Status</h2>
-          <span class="text-xs text-slate-400">ringkasan status pesanan</span>
+          <h2 class="text-lg font-semibold">Pesanan Berdasarkan Status</h2>
+          <span class="text-xs text-slate-300">ringkasan status pesanan</span>
         </div>
 
         <div class="flex-1">
@@ -165,8 +165,8 @@
         class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 h-72 flex flex-col overflow-hidden"
       >
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-lg font-semibold">Revenue by Status</h2>
-          <span class="text-xs text-slate-400">hanya paid & shipped</span>
+          <h2 class="text-lg font-semibold">Pendapatan Berdasarkan Status</h2>
+          <span class="text-xs text-slate-300">hanya paid & shipped</span>
         </div>
 
         <div class="flex-1 min-h-0 flex items-center justify-center">
@@ -243,13 +243,13 @@ const chartRevenueByStatus = ref([])
 // Kartu ringkasan
 const overviewCards = computed(() => [
   {
-    title: "Total Orders",
+    title: "Total Pesanan",
     value: overview.value.totalOrders ?? 0,
     icon: "orders",
     iconBg: "bg-indigo-500/15 text-indigo-300",
   },
   {
-    title: "Total Revenue",
+    title: "Total Pendapatan",
     value:
       "Rp " +
       Number(overview.value.totalRevenue || 0).toLocaleString("id-ID"),
@@ -257,13 +257,13 @@ const overviewCards = computed(() => [
     iconBg: "bg-emerald-500/15 text-emerald-300",
   },
   {
-    title: "Total Customers",
+    title: "Total Pelanggan",
     value: overview.value.totalCustomers ?? 0,
     icon: "customers",
     iconBg: "bg-sky-500/15 text-sky-300",
   },
   {
-    title: "Total Products",
+    title: "Total Produk",
     value: overview.value.totalProducts ?? 0,
     icon: "products",
     iconBg: "bg-amber-500/15 text-amber-300",

@@ -3,12 +3,12 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <h1 class="text-2xl font-semibold mb-1">Customer List</h1>
+        <h1 class="text-2xl font-semibold mb-1">Daftar Pelanggan</h1>
       </div>
 
       <div class="flex items-center gap-3">
         <router-link to="/customers/add">
-          <el-button type="primary">+ Add Customer</el-button>
+          <el-button type="primary">+ Tambah Pelanggan</el-button>
         </router-link>
       </div>
     </div>
@@ -22,15 +22,15 @@
     <Suspense>
       <template #default>
         <AsyncDataTable
-          title="Customers"
-          subtitle="Menampilkan daftar customer dengan pencarian, sort, dan pagination"
+          title="Pelanggan"
+          subtitle="Menampilkan daftar pelanggan dengan pencarian, sort, dan pagination"
           :data="customers"
           :columns="columns"
           :loading="loading"
           row-key="_id"
           :page-size="10"
           searchable
-          search-placeholder="Cari nama / email / phone..."
+          search-placeholder="Cari nama / email / telp..."
         >
           <!-- Custom cell: Address -->
           <template #address="{ value }">
@@ -46,11 +46,11 @@
           <template #actions="{ row }">
             <div class="text-right space-x-2">
               <router-link :to="`/customers/edit/${getId(row)}`">
-                <el-button type="primary" size="small">Edit</el-button>
+                <el-button type="primary" size="small">Ubah</el-button>
               </router-link>
 
               <el-button size="small" type="danger" @click="handleDelete(row)">
-                Delete
+                Hapus
               </el-button>
             </div>
           </template>
@@ -68,19 +68,19 @@
       <template #default>
         <AsyncModal
           v-model="showDeleteModal"
-          title="Delete Customer"
+          title="Hapus Pelanggan"
           width="400px"
           @close="showDeleteModal = false"
         >
           <span>
-            Hapus customer
+            Hapus pelanggan
             <strong>{{ deleteTargetName || 'ini' }}</strong>?
           </span>
 
           <template #footer>
-            <el-button @click="showDeleteModal = false">Cancel</el-button>
+            <el-button @click="showDeleteModal = false">Batal</el-button>
             <el-button type="danger" :loading="deleting" @click="confirmDelete">
-              Delete
+              Hapus
             </el-button>
           </template>
         </AsyncModal>
@@ -125,19 +125,19 @@ const formatDate = (v) => (v ? new Date(v).toLocaleString('id-ID') : '-')
 
 // BaseDataTable column schema
 const columns = [
-  { label: 'Name', key: 'name', sortable: true, searchable: true },
+  { label: 'Nama', key: 'name', sortable: true, searchable: true },
   { label: 'Email', key: 'email', sortable: true, searchable: true },
-  { label: 'Phone', key: 'phone', sortable: true, searchable: true },
+  { label: 'Telepon', key: 'phone', sortable: true, searchable: true },
   {
-    label: 'Address',
+    label: 'Alamat',
     key: 'address',
     sortable: false,
     searchable: true,
     cellClass: 'text-slate-300',
   },
-  { label: 'Created', key: 'createdAt', sortable: true },
+  { label: 'Dibuat Pada', key: 'createdAt', sortable: true },
   {
-    label: 'Actions',
+    label: 'Aksi',
     key: 'actions',
     sortable: false,
     searchable: false,

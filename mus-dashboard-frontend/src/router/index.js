@@ -23,6 +23,7 @@ const CustomerEdit = () => import('../pages/CustomerEdit.vue')
 const Analytics = () => import('../pages/Analytics.vue')
 const Settings = () => import('../pages/Settings.vue')
 const Login = () => import('../pages/auth/Login.vue')
+const Register = () => import('../pages/auth/Register.vue')
 
 const routes = [
   { path: '/', redirect: '/dashboard' },
@@ -101,6 +102,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   },
 ]
 

@@ -2,15 +2,15 @@
   <div class="p-4 text-white">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-semibold">Edit Customer</h1>
+      <h1 class="text-2xl font-semibold">Ubah Pelanggan</h1>
       <router-link to="/customers">
-        <el-button>Back to List</el-button>
+        <el-button>Kembali ke Daftar</el-button>
       </router-link>
     </div>
 
     <!-- Loading & Error -->
     <div v-if="loading" class="text-slate-300 text-sm mb-2">
-      Loading customer...
+      Memuat pelanggan...
     </div>
     <div v-if="error" class="text-red-400 text-sm mb-2">
       {{ error }}
@@ -19,12 +19,12 @@
     <!-- Form -->
     <div v-if="!loading" class="max-w-xl">
       <BaseForm
-        title="Customer Information"
-        subtitle="Perbarui data customer di bawah ini."
+        title="Informasi Pelanggan"
+        subtitle="Perbarui data pelanggan di bawah ini."
         :schema="formSchema"
         :model="form"
         :loading="saving"
-        submit-label="Update"
+        submit-label="Perbarui"
         @submit="handleSubmit"
         @cancel="goBack"
       />
@@ -61,10 +61,10 @@ const form = ref({
 // schema untuk BaseForm
 const formSchema = [
   {
-    label: "Name",
+    label: "Nama",
     prop: "name",
     type: "text",
-    placeholder: "Nama customer",
+    placeholder: "Nama pelanggan",
     required: true,
   },
   {
@@ -74,20 +74,20 @@ const formSchema = [
     placeholder: "email@example.com",
   },
   {
-    label: "Phone",
+    label: "Telepon",
     prop: "phone",
     type: "text",
     placeholder: "08xxxxxxxxxx",
   },
   {
-    label: "Address",
+    label: "Alamat",
     prop: "address",
     type: "textarea",
     rows: 2,
     placeholder: "Alamat lengkap",
   },
   {
-    label: "Notes",
+    label: "Catatan",
     prop: "notes",
     type: "textarea",
     rows: 2,

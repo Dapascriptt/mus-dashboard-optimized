@@ -9,7 +9,7 @@
         <h2 v-if="title" class="text-sm font-semibold text-slate-100">
           {{ title }}
         </h2>
-        <p v-if="subtitle" class="text-xs text-slate-400 mt-0.5">
+        <p v-if="subtitle" class="text-xs text-slate-300 mt-0.5">
           {{ subtitle }}
         </p>
       </div>
@@ -86,7 +86,7 @@
           <tr v-else-if="!paginatedRows.length">
             <td
               :colspan="columns.length + (showIndex ? 1 : 0)"
-              class="px-4 py-6 text-center text-xs text-slate-400"
+              class="px-4 py-6 text-center text-xs text-slate-300"
             >
               Belum ada data yang ditampilkan.
             </td>
@@ -101,7 +101,7 @@
           >
             <td
               v-if="showIndex"
-              class="px-4 py-2 text-xs text-slate-400"
+              class="px-4 py-2 text-xs text-slate-300"
             >
               {{ startItem + index }}
             </td>
