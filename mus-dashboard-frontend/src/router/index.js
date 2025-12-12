@@ -3,26 +3,27 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 //AGGRESSIVE LAZY LOADING — SEMUA PAGES DI-IMPORT DINAMIS
 
-// Dashboard (halaman utama – bisa di-prefetch)
-const Dashboard = () => import('../pages/Dashboard.vue')
+// Dashboard (halaman utama – Eager Loading for Hybrid Strategy)
+import Dashboard from '../pages/Dashboard.vue'
 
 // PRODUCT MODULE
-const ProductList  = () => import('../pages/ProductList.vue')
-const ProductAdd   = () => import('../pages/ProductAdd.vue')
-const ProductEdit  = () => import('../pages/ProductEdit.vue')
+const ProductList = () => import('../pages/ProductList.vue')
+const ProductAdd = () => import('../pages/ProductAdd.vue')
+const ProductEdit = () => import('../pages/ProductEdit.vue')
 
 // ORDER MODULE
-const OrderAdd     = () => import('../pages/OrderAdd.vue')
-const OrderList    = () => import('../pages/OrderList.vue')
-const OrderDetail  = () => import('../pages/OrderDetail.vue')
+const OrderAdd = () => import('../pages/OrderAdd.vue')
+const OrderList = () => import('../pages/OrderList.vue')
+const OrderDetail = () => import('../pages/OrderDetail.vue')
 
 // OTHER PAGES
 const CustomerList = () => import('../pages/CustomerList.vue')
-const CustomerAdd  = () => import('../pages/CustomerAdd.vue')
+const CustomerAdd = () => import('../pages/CustomerAdd.vue')
 const CustomerEdit = () => import('../pages/CustomerEdit.vue')
-const Analytics    = () => import('../pages/Analytics.vue')
-const Settings     = () => import('../pages/Settings.vue')
-const Login        = () => import('../pages/auth/Login.vue')
+const Analytics = () => import('../pages/Analytics.vue')
+const Settings = () => import('../pages/Settings.vue')
+const Login = () => import('../pages/auth/Login.vue')
+const Register = () => import('../pages/auth/Register.vue')
 
 const routes = [
   { path: '/', redirect: '/dashboard' },
@@ -101,6 +102,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   },
 ]
 

@@ -36,9 +36,9 @@ async function ensureDefaultUser() {
 
   defaultUserPromise = (async () => {
     const defaultUsername =
-      (process.env.DEFAULT_ADMIN_USERNAME || "daffa").trim();
+      (process.env.DEFAULT_ADMIN_USERNAME || "admin").trim();
     const defaultPassword =
-      (process.env.DEFAULT_ADMIN_PASSWORD || "daffa123").trim();
+      (process.env.DEFAULT_ADMIN_PASSWORD || "admin123").trim();
     const defaultName =
       (process.env.DEFAULT_ADMIN_NAME || "Admin").trim();
 

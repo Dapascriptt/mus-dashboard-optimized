@@ -2,21 +2,21 @@
   <div class="p-4 text-white">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-semibold">Add Customer</h1>
+      <h1 class="text-2xl font-semibold">Tambah Pelanggan</h1>
       <router-link to="/customers">
-        <el-button>Back to List</el-button>
+        <el-button>Kembali ke Daftar</el-button>
       </router-link>
     </div>
 
     <!-- Form -->
     <div class="max-w-xl">
       <BaseForm
-        title="Customer Information"
-        subtitle="Isi data customer baru di bawah ini."
+        title="Informasi Pelanggan"
+        subtitle="Isi data pelanggan baru di bawah ini."
         :schema="formSchema"
         :model="form"
         :loading="saving"
-        submit-label="Save"
+        submit-label="Simpan"
         @submit="handleSubmit"
         @cancel="goBack"
       />
@@ -45,10 +45,10 @@ const form = ref({
 // Schema untuk BaseForm
 const formSchema = [
   {
-    label: "Name",
+    label: "Nama",
     prop: "name",
     type: "text",
-    placeholder: "Nama customer",
+    placeholder: "Nama pelanggan",
     required: true,
   },
   {
@@ -58,20 +58,20 @@ const formSchema = [
     placeholder: "email@example.com",
   },
   {
-    label: "Phone",
+    label: "Telepon",
     prop: "phone",
     type: "text",
     placeholder: "08xxxxxxxxxx",
   },
   {
-    label: "Address",
+    label: "Alamat",
     prop: "address",
     type: "textarea",
     rows: 2,
-    placeholder: "Alamat customer",
+    placeholder: "Alamat pelanggan",
   },
   {
-    label: "Notes",
+    label: "Catatan",
     prop: "notes",
     type: "textarea",
     rows: 2,

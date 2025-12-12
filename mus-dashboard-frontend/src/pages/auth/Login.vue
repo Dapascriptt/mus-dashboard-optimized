@@ -3,9 +3,9 @@
   <div
     class="w-full max-w-md bg-slate-900/95 border border-slate-800 rounded-xl p-8 shadow-xl"
   >
-    <h1 class="text-2xl font-bold mb-4">Login</h1>
+    <h1 class="text-2xl font-bold mb-4">Masuk</h1>
 
-    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+    <p class="text-slate-300 text-sm mb-6 leading-relaxed">
       Masuk ke <span class="text-slate-100 font-semibold">Mus-Dashboard</span>
       untuk mengelola produk, pesanan, dan customer.
       Silakan gunakan akun yang sudah terdaftar.
@@ -42,9 +42,16 @@
                disabled:opacity-60 disabled:cursor-not-allowed
                text-sm font-semibold tracking-wide transition-colors"
       >
-        <span v-if="authStore.loading">Logging in...</span>
-        <span v-else>Login</span>
+        <span v-if="authStore.loading">Sedang masuk...</span>
+        <span v-else>Masuk</span>
       </button>
+    </div>
+
+    <div class="text-center text-sm text-slate-400 mt-4">
+      Belum punya akun?
+      <router-link to="/register" class="text-blue-400 hover:text-blue-300 transition-colors">
+        Daftar disini
+      </router-link>
     </div>
   </div>
 </template>

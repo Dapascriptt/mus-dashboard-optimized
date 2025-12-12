@@ -5,7 +5,7 @@
       <h2 class="text-sm font-semibold text-slate-100">
         {{ title }}
       </h2>
-      <p v-if="subtitle" class="text-xs text-slate-400 mt-1">
+      <p v-if="subtitle" class="text-xs text-slate-300 mt-1">
         {{ subtitle }}
       </p>
     </div>

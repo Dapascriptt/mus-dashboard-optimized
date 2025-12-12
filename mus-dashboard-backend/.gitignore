@@ -1,0 +1,4 @@
+node_modules/
+logs/
+*.log
+# .env (user wants to push this)

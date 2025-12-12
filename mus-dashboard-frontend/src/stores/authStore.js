@@ -45,6 +45,28 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    async register(name, username, password) {
+      this.loading = true;
+      this.lastError = "";
+
+      try {
+        await api.post("/auth/register", {
+          name,
+          username,
+          password,
+        });
+        return true;
+      } catch (err) {
+        this.lastError =
+          err.response?.data?.message ||
+          err.message ||
+          "Registrasi gagal.";
+        return false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async fetchMe() {
       if (!this.token) return false;
 

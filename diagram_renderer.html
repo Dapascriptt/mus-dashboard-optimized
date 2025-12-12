@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Renderer</title>
+    <style>
+        body { margin: 0; padding: 20px; background: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        #diagram { background: white; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div id="diagram" class="mermaid">
+        flowchart TB
+            subgraph Baseline["BASELINE (2A): Monolithic Delivery"]
+                direction TB
+                UserA["User Request"] -->|Download JS Bundle| IndexA["index.js (2MB+)"]
+                IndexA -->|Parse & Execute| ParseA["Load ALL Pages"]
+                ParseA -->|Blocked| RenderA["Render UI"]
+                RenderA --> ReadyA["Interactive"]
+                
+                style IndexA fill:#ffcccc,stroke:#900,stroke-width:2px,color:black
+                style ParseA fill:#ffcccc,stroke:#900,stroke-width:2px,color:black
+            end
+
+            subgraph Optimized["OPTIMIZED (2B): Modular Delivery"]
+                direction TB
+                UserB["User Request"] -->|Download Entry| IndexB["index.js (KB)"]
+                IndexB -->|Load Core| RenderB["Render Dashboard"]
+                RenderB --> ReadyB["Interactive"]
+                
+                ReadyB -.->|Lazy Load on Interaction| Chunk1["Chunk: Product"]
+                ReadyB -.->|Lazy Load on Interaction| Chunk2["Chunk: Order"]
+                
+                style IndexB fill:#ccffcc,stroke:#090,stroke-width:2px,color:black
+                style RenderB fill:#ccffcc,stroke:#090,stroke-width:2px,color:black
+                style Chunk1 fill:#e6fffa,stroke:#099,stroke-dasharray: 5 5,color:black
+                style Chunk2 fill:#e6fffa,stroke:#099,stroke-dasharray: 5 5,color:black
+            end
+    </div>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

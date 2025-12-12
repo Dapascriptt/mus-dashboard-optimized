@@ -2,8 +2,8 @@
   <div class="space-y-6 text-white">
     <!-- Header -->
     <div>
-      <h1 class="text-2xl font-semibold mb-1">Account Settings</h1>
-      <p class="text-xs text-slate-400">
+      <h1 class="text-2xl font-semibold mb-1">Pengaturan Akun</h1>
+      <p class="text-xs text-slate-300">
         Kelola informasi akun Anda.
       </p>
     </div>
@@ -12,12 +12,12 @@
     <section
       class="bg-slate-900/70 border border-slate-800 rounded-2xl px-6 py-5 space-y-4"
     >
-      <h2 class="text-lg font-semibold">User Information</h2>
+      <h2 class="text-lg font-semibold">Informasi Pengguna</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Username (read only) -->
         <div>
-          <label class="block text-xs text-slate-400 mb-1">Username</label>
+          <label class="block text-xs text-slate-300 mb-1">Username</label>
           <input
             :value="profileForm.username"
             disabled
@@ -28,7 +28,7 @@
 
         <!-- Name (editable) -->
         <div>
-          <label class="block text-xs text-slate-400 mb-1">Name</label>
+          <label class="block text-xs text-slate-300 mb-1">Nama</label>
           <input
             v-model="profileForm.name"
             class="w-full px-3 py-2 rounded-md bg-slate-800 border border-slate-700
@@ -45,7 +45,7 @@
           class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700
                  text-sm font-semibold transition-colors"
         >
-          Save Changes
+          Simpan Perubahan
         </button>
       </div>
     </section>
@@ -54,11 +54,11 @@
     <section
       class="bg-slate-900/70 border border-slate-800 rounded-2xl px-6 py-5 space-y-4"
     >
-      <h2 class="text-lg font-semibold">Change Password</h2>
+      <h2 class="text-lg font-semibold">Ubah Password</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs text-slate-400 mb-1">New Password</label>
+          <label class="block text-xs text-slate-400 mb-1">Password Baru</label>
           <input
             type="password"
             v-model="passwordForm.newPassword"
@@ -70,7 +70,7 @@
 
         <div>
           <label class="block text-xs text-slate-400 mb-1">
-            Confirm Password
+            Konfirmasi Password
           </label>
           <input
             type="password"
@@ -89,7 +89,7 @@
           class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700
                  text-sm font-semibold transition-colors"
         >
-          Update Password
+          Perbarui Password
         </button>
       </div>
     </section>

@@ -3,11 +3,11 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <h1 class="text-2xl font-semibold mb-1">Order List</h1>
+        <h1 class="text-2xl font-semibold mb-1">Daftar Pesanan</h1>
       </div>
 
       <router-link to="/orders/add">
-        <el-button type="primary">+ Add Order</el-button>
+        <el-button type="primary">+ Tambah Pesanan</el-button>
       </router-link>
     </div>
 
@@ -20,15 +20,15 @@
     <Suspense>
       <template #default>
         <AsyncDataTable
-          title="Orders"
-          subtitle="Menampilkan daftar order dengan search, sort, dan pagination (10/order)"
+          title="Pesanan"
+          subtitle="Menampilkan daftar pesanan dengan search, sort, dan pagination (10/halaman)"
           :columns="columns"
           :data="orders"
           :loading="loading"
           row-key="_id"
           :page-size="10"
           searchable
-          search-placeholder="Cari order # / customer / status..."
+          search-placeholder="Cari no pesanan / pelanggan / status..."
         >
           <!-- Kolom: Total -->
           <template #totalAmount="{ value }">
@@ -54,7 +54,7 @@
           <template #actions="{ row }">
             <div class="text-right space-x-2">
               <router-link :to="`/orders/${getId(row)}`">
-                <el-button size="small" type="primary">Detail</el-button>
+                <el-button size="small" type="primary">Rincian</el-button>
               </router-link>
 
               <el-button
@@ -62,7 +62,7 @@
                 type="danger"
                 @click="handleDelete(row)"
               >
-                Delete
+                Hapus
               </el-button>
             </div>
           </template>
@@ -80,19 +80,19 @@
       <template #default>
         <AsyncModal
           v-model="showDeleteModal"
-          title="Delete Order"
+          title="Hapus Pesanan"
           width="400px"
           @close="showDeleteModal = false"
         >
           <span>
-            Hapus order
+            Hapus pesanan
             <strong>{{ deleteTargetName || 'ini' }}</strong>?
           </span>
 
           <template #footer>
-            <el-button @click="showDeleteModal = false">Cancel</el-button>
+            <el-button @click="showDeleteModal = false">Batal</el-button>
             <el-button type="danger" :loading="deleting" @click="confirmDelete">
-              Delete
+              Hapus
             </el-button>
           </template>
         </AsyncModal>
@@ -141,13 +141,13 @@ const deleteTargetName = ref('')
 //  DEFINISI KOLOM TABEL
 // =======================
 const columns = [
-  { label: 'Order #', key: 'orderNumber', sortable: true },
-  { label: 'Customer', key: 'customerName', sortable: true },
+  { label: 'No. Pesanan', key: 'orderNumber', sortable: true },
+  { label: 'Pelanggan', key: 'customerName', sortable: true },
   { label: 'Total', key: 'totalAmount', sortable: true, cellClass: 'text-right' },
   { label: 'Status', key: 'status', sortable: true },
-  { label: 'Created At', key: 'createdAt', sortable: true },
+  { label: 'Dibuat Pada', key: 'createdAt', sortable: true },
   {
-    label: 'Actions',
+    label: 'Aksi',
     key: 'actions',
     sortable: false,
     searchable: false,

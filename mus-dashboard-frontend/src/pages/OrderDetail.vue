@@ -1,16 +1,16 @@
 <template>
   <div class="p-4 text-white">
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-semibold">Order Detail</h1>
+      <h1 class="text-2xl font-semibold">Rincian Pesanan</h1>
 
       <router-link to="/orders">
-        <el-button>Back to Orders</el-button>
+        <el-button>Kembali ke Pesanan</el-button>
       </router-link>
     </div>
 
     <!-- Loading -->
     <div v-if="loading" class="text-slate-300 text-sm">
-      Loading order...
+      Memuat pesanan...
     </div>
 
     <!-- Error / tidak ditemukan -->
@@ -26,11 +26,11 @@
       <!-- Info utama -->
       <div class="space-y-1 text-sm">
         <p>
-          <span class="font-semibold">Order #:</span>
+          <span class="font-semibold">No. Pesanan:</span>
           {{ currentOrder.orderNumber }}
         </p>
         <p>
-          <span class="font-semibold">Customer:</span>
+          <span class="font-semibold">Pelanggan:</span>
           {{ currentOrder.customerName }}
         </p>
         <p>
@@ -42,7 +42,7 @@
           {{ currentOrder.status }}
         </p>
         <p>
-          <span class="font-semibold">Created At:</span>
+          <span class="font-semibold">Dibuat Pada:</span>
           {{ formatDate(currentOrder.createdAt) }}
         </p>
       </div>
@@ -54,7 +54,7 @@
         <div class="flex items-center space-x-2">
           <el-select
             v-model="selectedStatus"
-            placeholder="Select status"
+            placeholder="Pilih status"
             class="w-48"
           >
             <el-option label="pending" value="pending" />
@@ -64,7 +64,7 @@
           </el-select>
 
           <el-button type="primary" size="small" @click="onSaveStatus">
-            Save
+            Simpan
           </el-button>
         </div>
       </div>
@@ -79,9 +79,9 @@
           <table class="min-w-full text-sm">
             <thead class="bg-slate-900/90 border-b border-slate-800">
               <tr class="text-left text-slate-300">
-                <th class="px-4 py-3">Product</th>
-                <th class="px-4 py-3 w-20">Qty</th>
-                <th class="px-4 py-3">Price</th>
+                <th class="px-4 py-3">Produk</th>
+                <th class="px-4 py-3 w-20">Jml</th>
+                <th class="px-4 py-3">Harga</th>
                 <th class="px-4 py-3">Subtotal</th>
               </tr>
             </thead>

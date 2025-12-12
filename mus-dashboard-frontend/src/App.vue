@@ -2,7 +2,7 @@
   <!-- LAYOUT AUTH (TANPA SIDEBAR) -->
   <div
     v-if="isAuthRoute"
-    class="min-h-screen bg-slate-950 flex items-center justify-center"
+    class="min-h-screen bg-slate-950 flex items-center justify-center text-slate-100"
   >
     <RouterView />
   </div>
@@ -53,7 +53,7 @@
           active-class="bg-slate-800 text-white"
         >
           <!-- ICON -->
-          <span class="w-5 h-5 flex items-center justify-center text-slate-300">
+          <span class="w-5 h-5 flex items-center justify-center text-slate-200">
             <!-- Dashboard -->
             <svg
               v-if="item.label === 'Dashboard'"
@@ -71,7 +71,7 @@
 
             <!-- Products -->
             <svg
-              v-else-if="item.label === 'Products'"
+              v-else-if="item.label === 'Produk'"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="w-4 h-4"
@@ -88,7 +88,7 @@
 
             <!-- Orders -->
             <svg
-              v-else-if="item.label === 'Orders'"
+              v-else-if="item.label === 'Pesanan'"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="w-4 h-4"
@@ -104,7 +104,7 @@
 
             <!-- Customers -->
             <svg
-              v-else-if="item.label === 'Customers'"
+              v-else-if="item.label === 'Pelanggan'"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="w-4 h-4"
@@ -120,7 +120,7 @@
 
             <!-- Analytics -->
             <svg
-              v-else-if="item.label === 'Analytics'"
+              v-else-if="item.label === 'Analitik'"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="w-4 h-4"
@@ -136,7 +136,7 @@
 
             <!-- Settings -->
             <svg
-              v-else-if="item.label === 'Settings'"
+              v-else-if="item.label === 'Pengaturan'"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="w-4 h-4"
@@ -169,10 +169,10 @@
       <header
         class="h-14 border-b border-slate-800 flex items-center justify-between px-4 bg-slate-900/80 backdrop-blur"
       >
-        <h1 class="text-lg font-semibold tracking-wide">Admin Dashboard</h1>
+        <h1 class="text-lg font-semibold tracking-wide">Dashboard Admin</h1>
 
         <div class="flex items-center gap-4">
-          <span class="text-sm text-slate-300">
+          <span class="text-sm text-slate-200">
             Hi, {{ authStore.user?.username || "" }}
           </span>
 
@@ -203,7 +203,7 @@ const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
 
-const authRoutes = ["Login"];
+const authRoutes = ["Login", "Register"];
 const isAuthRoute = computed(() => authRoutes.includes(route.name));
 
 const isSidebarCollapsed = ref(false);
@@ -213,11 +213,11 @@ const toggleSidebar = () => {
 
 const menu = [
   { path: "/dashboard", label: "Dashboard" },
-  { path: "/products", label: "Products" },
-  { path: "/orders", label: "Orders" },
-  { path: "/customers", label: "Customers" },
-  { path: "/analytics", label: "Analytics" },
-  { path: "/settings", label: "Settings" },
+  { path: "/products", label: "Produk" },
+  { path: "/orders", label: "Pesanan" },
+  { path: "/customers", label: "Pelanggan" },
+  { path: "/analytics", label: "Analitik" },
+  { path: "/settings", label: "Pengaturan" },
 ];
 
 const onLogout = () => {
